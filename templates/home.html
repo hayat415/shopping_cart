@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{% block title%} Home {% endblock %}
+
+{% block content%}
+<div class="container">
+    <h1 class="text-center"> Wellcome to Swat</h1>
+    <hr> 
+    <div class="row mt-3">
+        {% for p in product_list %}
+        <div class="col-md-3 card">
+            <div class="m-4">
+            <h3>{{p.title}}</h3>
+            <img src="{{p.image.url}}" alt="" width=250 style="height:200px; object-fit:contain;">
+            <P> Price: <strike> Rs.{{p.marked_price}}</strike> Rs.{{p.selling_price}}</p>  
+            <a href="{% url 'ecomapp:addtocart' p.id %}" class="btn btn-primary"> Add to  Cart </a> 
+            </div>
+        </div>
+        {%endfor%}
+        <div class="pagination">
+            <span class="step-links">
+                {% if product_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ product_list.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ product_list.number }} of {{ product_list.paginator.num_pages }}.
+                </span>
+        
+                {% if product_list.has_next %}
+                    <a href="?page={{ product_list.next_page_number }}">next</a>
+                    <a href="?page={{ product_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

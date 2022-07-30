@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+
+{% block content%}
+
+<div class="container">
+
+    <h3> All Products</h3> <hr>
+
+    {% for cat in allcategories %}
+
+    <h3> {{cat}} </h3>
+    <div class="row mt-3">
+        <div class= "m-4">
+
+            {% for p in cat.product_set.all %}<hr>
+            <div class="col-md-3" style="border: 1px solid black;">
+                <h3><a href="{% url 'ecomapp:productdetail' p.slug %}">{{p.title}}</a></h3>
+                <img src="{{p.image.url}}" alt="" width=250 height=250>
+                <P> Price: <strike> Rs.{{p.marked_price}}</strike> Rs.{{p.selling_price}}</p>  
+                    <a href=""{% url 'ecomapp:addtocart' p.id %}"" class="btn btn-primary"> Add to  Cart </a> 
+            </div>
+        </div>    
+
+            {%endfor%}
+    </div>
+        
+
+    </div>
+
+
+    {%endfor%}
+
+    
+
+</div>
+
+{% endblock%}

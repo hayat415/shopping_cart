@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block title %} My Profile {% endblock %}
+
+{% block content %}
+<div class="continaer">
+    <div class="row">
+        <div class="col-md-5">
+            <h3> Detail Information</h3>
+            <p> <span>Name: </span>{{customer.full_name}}</p>
+            <p> <span>UserName: </span>{{customer.user..username}}</p>
+            <p> <span>Email: </span>{{customer.user.email}}</p>
+            <p> <span>Address: </span>{{customer.address}}</p>
+            <p> <span>Joined On: </span>{{customer.joined_on}}</p>
+        </div>
+        <div class="col-md-6">
+            <h3> Preveious Orders </h3>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> SN</th>
+                        <th> Order Id</th>
+                        <th> Amount </th>
+                        <th> Orderd on </th>
+                        <th> Status </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ord in orders %}
+                        <tr>
+                            <td> {{forloop.counter}}</td>
+                            <td><a href="{% url 'ecomapp:customerorderdetail' ord.pk %}">  #order_{{ord.id}}</a></td>
+                            <td> {{ord.total}}</td>
+                            <td> {{ord.created_at|timesince}} ago</td>
+                            <td> {{ord.order_status}}</td>
+                        </tr>{% endfor %}
+        </div>
+    </div>
+</div>
+      
+
+
+
+
+{% endblock %}
